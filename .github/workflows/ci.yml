@@ -13,17 +13,12 @@ on:
       - main
 
 jobs:
-<<<<<<< HEAD
   test_and_build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18]
 
-=======
-  test:
-    runs-on: ubuntu-latest
->>>>>>> aa8a5072493d7e3c0f337468684da205bf01505d
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
