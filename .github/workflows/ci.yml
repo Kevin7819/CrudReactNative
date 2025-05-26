@@ -13,9 +13,8 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,12 +26,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm install -g expo-cli@^6.0.0  # Versión compatible con Expo 53
           npm install
 
       - name: Run Tests
         run: |
           npm test -- --coverage
-
-      - name: Build APK (for React Native projects)
-        run: |
-          npm run android
