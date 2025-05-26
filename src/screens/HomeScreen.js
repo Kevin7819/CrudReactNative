@@ -1,21 +1,18 @@
-import React, { useState, useCallback } from "react";
-import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import React, { useState, useCallback, useEffect } from "react";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { getPersons, deletePerson } from "../firebase/firestore";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigate }) {
   const [persons, setPersons] = useState([]);
-  const navigation = useNavigation();
 
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        const data = await getPersons();
-        setPersons(data);
-      };
-      fetchData();
-    }, [])
-  );
+  const fetchData = useCallback(async () => {
+    const data = await getPersons();
+    setPersons(data);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleDelete = async (id) => {
     await deletePerson(id);
@@ -26,17 +23,22 @@ export default function HomeScreen() {
     <View style={styles.card}>
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.email}>{item.email}</Text>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item.id)}>
+      <TouchableOpacity 
+        style={styles.deleteButton} 
+        onPress={() => handleDelete(item.id)}
+        testID={`delete-button-${item.id}`}
+      >
         <Text style={styles.deleteButtonText}>Eliminar</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="app-container">
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => navigation.navigate("Create")}
+        onPress={() => navigate("create")}
+        testID="add-button"
       >
         <Text style={styles.addButtonText}>Agregar Persona</Text>
       </TouchableOpacity>
@@ -45,6 +47,7 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
+        testID="persons-list"
       />
     </View>
   );

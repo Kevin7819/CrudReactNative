@@ -14,7 +14,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function CreateScreen({ navigation }) {
+export default function CreateScreen({ navigate }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
@@ -39,7 +39,7 @@ export default function CreateScreen({ navigation }) {
 
     await addPerson({ name, email, birthDate: birthDate.toISOString(), gender });
     Alert.alert("Persona agregada con éxito");
-    navigation.goBack();
+    navigate("home");
   };
 
   return (
