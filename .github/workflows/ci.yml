@@ -13,12 +13,17 @@ on:
       - main
 
 jobs:
+<<<<<<< HEAD
   test_and_build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18]
 
+=======
+  test:
+    runs-on: ubuntu-latest
+>>>>>>> aa8a5072493d7e3c0f337468684da205bf01505d
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -26,6 +31,7 @@ jobs:
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
+<<<<<<< HEAD
           node-version: ${{ matrix.node-version }}
           cache: 'npm' 
 
@@ -43,3 +49,15 @@ jobs:
           eas build --platform android --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+=======
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          npm install -g expo-cli@^6.0.0  # Versión compatible con Expo 53
+          npm install
+
+      - name: Run Tests
+        run: |
+          npm test -- --coverage
+>>>>>>> aa8a5072493d7e3c0f337468684da205bf01505d
