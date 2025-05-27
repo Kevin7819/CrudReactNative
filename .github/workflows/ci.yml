@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - kev
+      - kev2
       - develop
       - main
   pull_request:
     branches:
       - kev
+      - kev2
       - develop
       - main
 
