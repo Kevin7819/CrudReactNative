@@ -1,11 +1,9 @@
-// __tests__/HomeScreen.test.js
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import HomeScreen from '../screens/HomeScreen';
-import * as firestore from '../services/firestore';
+import * as firestore from '../services/firebase';
 
-// Mock de Firebase
-jest.mock('../services/firestore');
+jest.mock('../services/firebase');
 
 describe('HomeScreen', () => {
   const mockNavigation = { navigate: jest.fn() };
@@ -16,29 +14,38 @@ describe('HomeScreen', () => {
   ];
 
   beforeEach(() => {
+    jest.clearAllMocks();
     firestore.getPersons.mockResolvedValue(mockData);
   });
 
   it('renders the list of persons and allows deletion', async () => {
-    const { getByText, getByTestId, queryByText } = render(<HomeScreen navigation={mockNavigation} />);
+    const { getByText, getByTestId, queryByText, queryByTestId } = render(<HomeScreen navigation={mockNavigation} />);
 
+    // ⏳ Esperar a que desaparezca el loader
     await waitFor(() => {
-      expect(getByText('Juan Pérez')).toBeTruthy();
-      expect(getByText('Ana Ruiz')).toBeTruthy();
+      expect(queryByTestId('loading-indicator')).toBeNull();
     });
 
-    const deleteButton = getByTestId('delete-button-1');
+    expect(getByText('Juan Pérez')).toBeTruthy();
+    expect(getByText('Ana Ruiz')).toBeTruthy();
+
     firestore.deletePerson.mockResolvedValue();
-    fireEvent.press(deleteButton);
+    fireEvent.press(getByTestId('delete-button-1'));
 
     await waitFor(() => {
       expect(queryByText('Juan Pérez')).toBeNull();
     });
   });
 
-  it('navigates to Create screen', () => {
-    const { getByTestId } = render(<HomeScreen navigation={mockNavigation} />);
+  it('navigates to Create screen', async () => {
+    const { getByTestId, queryByTestId } = render(<HomeScreen navigation={mockNavigation} />);
+
+    // ⏳ Esperar a que desaparezca el loader
+    await waitFor(() => {
+      expect(queryByTestId('loading-indicator')).toBeNull();
+    });
+
     fireEvent.press(getByTestId('add-button'));
-    expect(mockNavigation.navigate).toHaveBeenCalledWith('Create');
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('create');
   });
 });

@@ -1,4 +1,3 @@
-// services/config.js
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import {
@@ -11,7 +10,6 @@ import {
   MEASUREMENT_ID
 } from "@env";
 
-// Firebase configuration object using .env variables
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
