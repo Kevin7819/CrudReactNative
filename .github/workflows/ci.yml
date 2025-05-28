@@ -3,11 +3,13 @@ name: React Native CI
 on:
   push:
     branches:
+      - Javier
       - kev
       - develop
       - main
   pull_request:
     branches:
+      - Javier
       - kev
       - develop
       - main
