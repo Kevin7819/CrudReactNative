@@ -1,19 +1,13 @@
-// app/screens/IndexTab.tsx
+import { usePersonCrud } from 'hooks/usePersonCrud';
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import PersonCrud from '../components/PersonCrud';
+import { SafeAreaView } from 'react-native';
+import { PersonCrud } from '../components/PersonCrud';
 
-export default function IndexTab() {
+export default function ExploreScreen() {
+  const crud = usePersonCrud();
   return (
-    <SafeAreaView style={styles.container}>
-      <PersonCrud />
+    <SafeAreaView style={{ flex: 1 }}>
+      <PersonCrud {...crud} />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'  // asegura fondo blanco en toda la pantalla
-  }
-});
