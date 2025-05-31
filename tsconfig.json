@@ -2,16 +2,16 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",                // necesario para que paths funcione
+    "baseUrl": ".",                // necessary for paths to work
     "paths": {
       "@/*": ["./*"],
-      "@env": ["expo-env.d.ts"]    // alias para tu módulo de env
+      "@env": ["expo-env.d.ts"]    // alias for your env module
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"               // declara aquí tu módulo @env
+    "expo-env.d.ts"               // the module is declared  @env
   ]
 }

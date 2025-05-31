@@ -1,11 +1,10 @@
-// app/components/PersonCrud.tsx
 
 import { Person } from 'hooks/usePersonCrud';
 import React, { useState } from 'react';
 import {
   Alert,
   FlatList,
-  Platform,
+  Platform, // Allows us to detect the operating system (iOS, Android, web).
   StyleSheet,
   Text,
   TextInput,
@@ -26,9 +25,7 @@ type Props = {
   onDelete: (id: string) => Promise<void>;
 };
 
-/**
- * Muestra un toast en Android o una alerta en iOS/web
- */
+// Display a toast on Android or an alert on iOS/web.
 function showMessage(message: string) {
   if (Platform.OS === 'android') {
     ToastAndroid.show(message, ToastAndroid.SHORT);
@@ -50,13 +47,24 @@ export function PersonCrud({
 }: Props) {
   const [loading, setLoading] = useState(false);
 
-  /**
-   * Guarda (crear o actualizar) y muestra feedback
-   */
+  //Save (create or update)
+  //but first validate that none of the fields are empty.
   async function handleSave() {
+  // --- < VALIDATION OF EMPTY FIELDS > --- ---
+    if (!name.trim() || !lastname.trim()) {
+       // If first or last name is empty, we show alert and exit without calling onSave()
+      Alert.alert(
+        'Campos incompletos',
+        'Por favor, llena todos los campos antes de guardar.'
+      );
+      return;
+    }
+  
+
     setLoading(true);
     try {
       await onSave();
+      // We show a success message depending on whether we were editing or creating.
       showMessage(editing ? 'Actualizado correctamente' : 'Creado correctamente');
     } catch (e) {
       console.error(e);
@@ -66,10 +74,7 @@ export function PersonCrud({
     }
   }
 
-  /**
-   * Pregunta confirmación antes de eliminar,
-   * luego elimina y muestra feedback
-   */
+  // Ask for confirmation before deleting
   function confirmDelete(id: string) {
     Alert.alert(
       'Confirmar eliminación',
@@ -95,9 +100,7 @@ export function PersonCrud({
     );
   }
 
-  /**
-   * Renderiza cada persona en forma de "card"
-   */
+  //Render each person in the form of a “card”.
   const renderItem = ({ item }: { item: Person }) => (
     <View style={styles.card}>
       <Text style={styles.personName}>
@@ -106,14 +109,14 @@ export function PersonCrud({
       <View style={styles.actions}>
         <TouchableOpacity
           style={[styles.btn, styles.edit]}
-          onPress={() => onEdit(item)}
+          onPress={() => onEdit(item)} // When pressed, we invoke onEdit with the Person object
           disabled={loading}
         >
           <Text style={styles.txt}>✏️</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.btn, styles.del]}
-          onPress={() => confirmDelete(item.id)}
+          onPress={() => confirmDelete(item.id)}// When pressed, we ask confirmDelete
           disabled={loading}
         >
           <Text style={styles.txt}>🗑️</Text>
@@ -143,6 +146,7 @@ export function PersonCrud({
         editable={!loading}
       />
 
+       {/* Button to create or update */}
       <TouchableOpacity
         style={[styles.saveBtn, loading && styles.disabledBtn]}
         onPress={handleSave}
@@ -163,6 +167,7 @@ export function PersonCrud({
   );
 }
 
+// Defining styles with StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -182,7 +187,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     borderColor: '#E5E7EB',
-    color: '#111827'          // color del texto en iOS/Android
+    color: '#111827'          // text color in iOS/Android
   },
   saveBtn: {
     backgroundColor: '#2563EB',
