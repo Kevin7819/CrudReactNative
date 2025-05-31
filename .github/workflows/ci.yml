@@ -27,9 +27,9 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install dependencies (ignorar peer-deps conflict)
         run: |
-          npm install
+          npm install --legacy-peer-deps
 
       - name: Run Tests
         run: |
