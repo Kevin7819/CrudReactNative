@@ -37,6 +37,13 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.card} testID={`person-card-${item.id}`}>
       <Text style={styles.name} testID={`person-name-${item.id}`}>{item.name}</Text>
       <Text style={styles.email} testID={`person-email-${item.id}`}>{item.email}</Text>
+      <TouchableOpacity
+        style={styles.editButton}
+        onPress={() => navigation.navigate("Edit", { person: item })}
+        testID={`edit-button-${item.id}`}
+      >
+      <Text style={styles.editButtonText}>Editar</Text>
+      </TouchableOpacity>
       <TouchableOpacity 
         style={styles.deleteButton} 
         onPress={() => handleDelete(item.id)}
@@ -67,7 +74,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container} testID="home-screen">
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => navigation.navigate("create")} // Usar navigation.navigate
+        onPress={() => navigation.navigate("Create")}
         testID="add-button"
       >
         <Text style={styles.addButtonText}>Agregar Persona</Text>
@@ -154,5 +161,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     fontSize: 16
+  },
+  editButton: {
+  backgroundColor: "#ffc107",
+  padding: 10,
+  borderRadius: 6,
+  alignItems: "center",
+  marginTop: 8,
+  marginBottom: 8,
+  },
+  editButtonText: {
+    color: "#000",
+    fontWeight: "bold",
   }
 });

@@ -1,65 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  View,
-  TextInput,
-  Alert,
-  Text,
-  Platform,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
+  View, TextInput, Alert, Text, Platform, StyleSheet, ScrollView, TouchableOpacity
 } from "react-native";
-import { addPerson } from "../services/firebase";
+import { updatePerson } from "../services/firebase";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function CreateScreen({ navigation  }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
-  const [birthDate, setBirthDate] = useState(new Date());
+export default function EditScreen({ route, navigation }) {
+  const { person } = route.params;
+  const [name, setName] = useState(person.name);
+  const [email, setEmail] = useState(person.email);
+  const [gender, setGender] = useState(person.gender || "");
+  const [birthDate, setBirthDate] = useState(new Date(person.birthDate));
   const [showPicker, setShowPicker] = useState(false);
 
-  const isValidEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  };
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
 
-  const handleSubmit = async () => {
-    if (!name || !email || !birthDate || !gender) {
+  const handleUpdate = async () => {
+    if (!name || !email || !gender || !birthDate) {
       Alert.alert("Por favor completa todos los campos.");
       return;
     }
 
     if (!isValidEmail(email)) {
-      Alert.alert("Por favor ingresa un correo electrónico válido.");
+      Alert.alert("Correo electrónico inválido.");
       return;
     }
 
-    await addPerson({ name, email, birthDate: birthDate.toISOString(), gender });
-    Alert.alert("Persona agregada con éxito");
+    await updatePerson(person.id, {
+      name,
+      email,
+      gender,
+      birthDate: birthDate.toISOString()
+    });
+
+    Alert.alert("Persona actualizada con éxito");
     navigation.navigate("Home");
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Nombre completo</Text>
-      <TextInput testID="nameInput" value={name} onChangeText={setName} style={styles.input} />
+      <Text style={styles.label}>Nombre</Text>
+      <TextInput value={name} onChangeText={setName} style={styles.input} />
 
-      <Text style={styles.label}>Correo electrónico</Text>
-      <TextInput
-        testID="emailInput"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        style={styles.input}
-      />
+      <Text style={styles.label}>Email</Text>
+      <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" />
 
       <View style={styles.centered}>
-        <TouchableOpacity testID="openDatePickerButton" style={styles.datePickerButton} onPress={() => setShowPicker(true)}>
+        <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowPicker(true)}>
           <Icon name="calendar" size={24} color="#007BFF" style={{ marginRight: 8 }} />
-          <Text style={styles.datePickerText}>Seleccionar fecha de nacimiento</Text>
+          <Text style={styles.datePickerText}>Editar fecha de nacimiento</Text>
         </TouchableOpacity>
       </View>
 
@@ -75,16 +66,12 @@ export default function CreateScreen({ navigation  }) {
         />
       )}
 
-      <Text testID="selectedDateText" style={styles.selectedDate}>
-        {birthDate ? `Fecha seleccionada: ${birthDate.toLocaleDateString()}` : "No seleccionada"}
+      <Text style={styles.selectedDate}>
+        {`Fecha seleccionada: ${birthDate.toLocaleDateString()}`}
       </Text>
 
-      <Text style={styles.label}>Género:</Text>
-      <Picker testID="genderPicker"
-        selectedValue={gender}
-        onValueChange={(itemValue) => setGender(itemValue)}
-        style={styles.picker}
-      >
+      <Text style={styles.label}>Género</Text>
+      <Picker selectedValue={gender} onValueChange={setGender} style={styles.picker}>
         <Picker.Item label="Selecciona un género" value="" />
         <Picker.Item label="Masculino" value="Masculino" />
         <Picker.Item label="Femenino" value="Femenino" />
@@ -92,13 +79,14 @@ export default function CreateScreen({ navigation  }) {
       </Picker>
 
       <View style={styles.centered}>
-        <TouchableOpacity testID="submitButton" style={styles.saveButton} onPress={handleSubmit}>
-          <Text style={styles.saveButtonText}>Guardar persona</Text>
+        <TouchableOpacity style={styles.saveButton} onPress={handleUpdate}>
+          <Text style={styles.saveButtonText}>Actualizar Persona</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
