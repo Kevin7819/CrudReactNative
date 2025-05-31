@@ -1,50 +1,96 @@
-# Welcome to your Expo app 👋
+React Native CRUD App - Investigación de Frameworks Móviles
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación móvil desarrollada en React Native (Expo) como parte del proyecto de investigación del curso "Diseño y Programación de Plataformas Móviles - I Ciclo 2025".  
+El objetivo es demostrar las capacidades de React Native mediante un CRUD completo, pruebas automáticas y configuración de integración continua con GitHub Actions.
 
-## Get started
+---
 
-1. Install dependencies
+Requisitos previos
 
-   ```bash
-   npm install
-   ```
+Antes de comenzar, asegurate de tener instalado:
 
-2. Start the app
+- Node.js v18+
+- Expo CLI
+- Git
+- Un emulador Android o un dispositivo físico con Expo Go
+- Una cuenta de GitHub
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+Instalación del proyecto
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Cloná el repositorio:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+git clone https://github.com/tu-usuario/react-native-crud-app.git
+cd react-native-crud-app
 
-## Get a fresh project
+2. Instalá las dependencias:
 
-When you're ready, run:
+npm install
 
-```bash
-npm run reset-project
-```
+(Si tenés conflictos de dependencias, ejecutá: npm install --legacy-peer-deps)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+3. Configurá el entorno:
 
-## Learn more
+Crea un archivo llamado `.env` en la raíz del proyecto y pegá lo siguiente:
 
-To learn more about developing your project with Expo, look at the following resources:
+API_KEY=AIzaSyDlN77VExGgPTSkee3FuZaD3CST_xY3XS4  
+AUTH_DOMAIN=crud-reatc-native.firebaseapp.com  
+PROJECT_ID=crud-reatc-native  
+STORAGE_BUCKET=crud-reatc-native.firebasestorage.app  
+MESSAGING_SENDER_ID=671071466908  
+APP_ID=1:671071466908:web:d696282ab3858c66c90459  
+MEASUREMENT_ID=G-3KTZR3V7LF  
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+Ejecutar la aplicación localmente
 
-Join our community of developers creating universal apps.
+npm run start
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Luego escaneá el código QR con la app Expo Go en tu teléfono o presioná "a" para abrir en un emulador Android.
+
+---
+
+Pruebas Automáticas
+
+Este proyecto incluye pruebas unitarias para las operaciones del CRUD usando Jest y Testing Library.
+
+Para correrlas:
+
+npm test
+
+---
+
+Integración Continua (CI) con GitHub Actions
+
+Se incluye un flujo de trabajo en `.github/workflows/test.yml` que:
+
+- Ejecuta `npm install`
+- Corre `npm test` en cada push o pull request a la rama `master`
+
+Esto asegura que todas las pruebas pasen antes de hacer merge.
+
+---
+
+Video Tutorial
+
+Disponible en YouTube:  
+https://youtu.be/LfBkcPihgTk
+
+---
+
+Integrantes del Grupo
+
+- Darlen Javier Diaz Urbina  
+- Gonzalo Dormos Rodríguez  
+- Gerald Calderón Castillo
+- Kevin Abel Venegas Bermúdez  
+
+---
+
+Rama principal
+
+El repositorio utiliza la rama `master` como rama principal.
+
+---
