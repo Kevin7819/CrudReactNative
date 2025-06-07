@@ -132,7 +132,7 @@ npm test
 A GitHub Actions workflow is included at:
 
 ```
-.github/workflows/test.yml
+.github/workflows/ci.yml
 ```
 
 This CI flow:
