@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1748662217978" clover="3.2.0">
-  <project timestamp="1748662217978" name="All files">
-    <metrics statements="51" coveredstatements="44" conditionals="18" coveredconditionals="13" methods="15" coveredmethods="15" elements="84" coveredelements="72" complexity="0" loc="51" ncloc="51" packages="2" files="2" classes="2"/>
+<coverage generated="1749329469430" clover="3.2.0">
+  <project timestamp="1749329469431" name="All files">
+    <metrics statements="57" coveredstatements="47" conditionals="24" coveredconditionals="15" methods="16" coveredmethods="16" elements="97" coveredelements="78" complexity="0" loc="57" ncloc="57" packages="2" files="2" classes="2"/>
     <package name="app.components">
-      <metrics statements="29" coveredstatements="22" conditionals="12" coveredconditionals="8" methods="9" coveredmethods="9"/>
+      <metrics statements="35" coveredstatements="25" conditionals="18" coveredconditionals="10" methods="10" coveredmethods="10"/>
       <file name="PersonCrud.tsx" path="D:\Documentos1\UNA SISTEMAS\2025\I CICLO 2025\Moviles\ReactNative\CrudReactNative\app\components\PersonCrud.tsx">
-        <metrics statements="29" coveredstatements="22" conditionals="12" coveredconditionals="8" methods="9" coveredmethods="9"/>
+        <metrics statements="35" coveredstatements="25" conditionals="18" coveredconditionals="10" methods="10" coveredmethods="10"/>
         <line num="30" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="31" count="0" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="48" count="8" type="stmt"/>
-        <line num="54" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="32" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="50" count="8" type="stmt"/>
+        <line num="55" count="1" type="cond" truecount="3" falsecount="1"/>
         <line num="56" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="68" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
-        <line num="90" count="1" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="104" count="8" type="stmt"/>
-        <line num="105" count="6" type="stmt"/>
-        <line num="112" count="1" type="stmt"/>
-        <line num="119" count="1" type="stmt"/>
-        <line num="128" count="8" type="stmt"/>
-        <line num="162" count="9" type="stmt"/>
-        <line num="171" count="1" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="87" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="106" count="8" type="stmt"/>
+        <line num="107" count="6" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="130" count="8" type="stmt"/>
+        <line num="164" count="9" type="stmt"/>
+        <line num="173" count="1" type="stmt"/>
       </file>
     </package>
     <package name="hooks">
