@@ -7,12 +7,7 @@ module.exports = function(api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      ['module:react-native-dotenv', { // plugin “react-native-dotenv”: allows importing environment variables
-        moduleName: '@env',      
-        path: '.env',             
-        safe: false,
-        allowUndefined: true
-      }]
+      ['expo-router/babel', { projectRoot: process.cwd() }]
     ]
   };
 };

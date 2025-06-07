@@ -1,7 +1,6 @@
-// We import the function to initialize the Firebase app
-import { initializeApp } from 'firebase/app';
+// app/services/firebase.ts
 
-// We import the necessary Firestore functions to create, read, update and delete documents.
+import { initializeApp } from 'firebase/app';
 import {
   addDoc,
   collection,
@@ -12,55 +11,44 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 
-// We import the environment variables defined in .env using react-native-dotenv
-import {
-  API_KEY,
-  APP_ID,
-  AUTH_DOMAIN,
-  MEASUREMENT_ID,
-  MESSAGING_SENDER_ID,
-  PROJECT_ID,
-  STORAGE_BUCKET
-} from '@env';
-
-// Firebase configuration with the credentials obtained from the environment variables
+// Configuración de Firebase (reemplaza con tus credenciales)
 const firebaseConfig = {
-  apiKey:            API_KEY,
-  authDomain:        AUTH_DOMAIN,
-  projectId:         PROJECT_ID,
-  storageBucket:     STORAGE_BUCKET,
-  messagingSenderId: MESSAGING_SENDER_ID,
-  appId:             APP_ID,
-  measurementId:     MEASUREMENT_ID,
+  apiKey:            "",
+  authDomain:        "",
+  projectId:         "",
+  storageBucket:     "",
+  messagingSenderId: "",
+  appId:             "",
+  measurementId:     ""
 };
 
-// Initialize the Firebase app with our configuration
+// Inicializamos la app de Firebase con esa configuración
 const app = initializeApp(firebaseConfig);
 
-// We initialize Firestore (the database) using long-polling to avoid connection problems in mobile environments.
+// Inicializamos Firestore usando longPolling para evitar problemas en móvil
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true
 });
 
-
-// Reference to the “persons” collection
+// Referencia a la colección “persons”
 const personCol = collection(db, 'persons');
 
 
-// Function to create a new person in the collection “persons”.
+
+// Crea un nuevo  (persona) en “persons”
 export const createPerson = (data: { name: string; lastname: string }) =>
   addDoc(personCol, data);
 
-// Asynchronous function to get all persons in the collection “persons”.
+// Obtiene todas las personas
 export const getPersons = async () => {
   const snap = await getDocs(personCol);
   return snap.docs.map(doc => ({ id: doc.id, ...(doc.data() as any) }));
 };
 
-// Function to update the data of an existing person.
+// Actualiza existente en “persons”
 export const updatePerson = (id: string, data: Partial<{ name: string; lastname: string }>) =>
   updateDoc(doc(db, 'persons', id), data);
 
-// Function to remove a person from the “persons” collection.
+// Elimina  de “persons”
 export const deletePerson = (id: string) =>
   deleteDoc(doc(db, 'persons', id));
