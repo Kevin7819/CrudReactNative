@@ -1,6 +1,5 @@
 {
   "expo": {
-    "entryPoint": "node_modules/expo-router/build/entry.js",
     "name": "REACTNATIVE",
     "slug": "REACTNATIVE",
     "version": "1.0.0",
@@ -17,8 +16,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.REACTNATIVE"
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",

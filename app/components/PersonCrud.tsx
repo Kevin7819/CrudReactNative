@@ -1,6 +1,6 @@
 
 import { Person } from 'hooks/usePersonCrud';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   FlatList,
@@ -29,8 +29,6 @@ type Props = {
 function showMessage(message: string) {
   if (Platform.OS === 'android') {
     ToastAndroid.show(message, ToastAndroid.SHORT);
-  } else if (Platform.OS === 'web') {
-    window.alert(message);
   } else {
     Alert.alert('', message);
   }
@@ -52,14 +50,21 @@ export function PersonCrud({
   //Save (create or update)
   //but first validate that none of the fields are empty.
   async function handleSave() {
+  // --- < VALIDATION OF EMPTY FIELDS > --- ---
     if (!name.trim() || !lastname.trim()) {
-      showMessage('Por favor, llena todos los campos antes de guardar.');
+       // If first or last name is empty, we show alert and exit without calling onSave()
+      Alert.alert(
+        'Campos incompletos',
+        'Por favor, llena todos los campos antes de guardar.'
+      );
       return;
     }
+  
 
     setLoading(true);
     try {
       await onSave();
+      // We show a success message depending on whether we were editing or creating.
       showMessage(editing ? 'Actualizado correctamente' : 'Creado correctamente');
     } catch (e) {
       console.error(e);
@@ -69,37 +74,30 @@ export function PersonCrud({
     }
   }
 
-  // Extraemos la lógica de borrado para poder llamarla tanto desde web como desde Alert
-  async function handleDelete(id: string) {
-    setLoading(true);
-    try {
-      await onDelete(id);
-      showMessage('Eliminado correctamente');
-    } catch (e) {
-      console.error(e);
-      showMessage('Error al eliminar');
-    } finally {
-      setLoading(false);
-    }
-  }
-
+  // Ask for confirmation before deleting
   function confirmDelete(id: string) {
-    if (Platform.OS === 'web') {
-      // En web usamos el confirm nativo
-      if (window.confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-        handleDelete(id);
-      }
-    } else {
-      // En móvil mostramos la alerta con botones
-      Alert.alert(
-        'Confirmar eliminación',
-        '¿Estás seguro de que deseas eliminar este registro?',
-        [
-          { text: 'No', style: 'cancel' },
-          { text: 'Sí', onPress: () => handleDelete(id) }
-        ]
-      );
-    }
+    Alert.alert(
+      'Confirmar eliminación',
+      '¿Estás seguro de que deseas eliminar este registro?',
+      [
+        { text: 'No', style: 'cancel' },
+        {
+          text: 'Sí',
+          onPress: async () => {
+            setLoading(true);
+            try {
+              await onDelete(id);
+              showMessage('Eliminado correctamente');
+            } catch (e) {
+              console.error(e);
+              showMessage('Error al eliminar');
+            } finally {
+              setLoading(false);
+            }
+          }
+        }
+      ]
+    );
   }
 
   //Render each person in the form of a “card”.
